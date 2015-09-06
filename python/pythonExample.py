@@ -17,5 +17,6 @@ SOUP.addOption('help', 'flag', help="""This command causes the help message to
 parsedArguments = SOUP.parse(sys.argv)
 if 'help' in parsedArguments['flags']:
 	SOUP.printHelpMessage()
-else:
-	print("argument soup parsed sys.argv like this: ", parsedArguments)
+
+print(sys.argv)
+print("argument soup parsed sys.argv like this: ", parsedArguments)

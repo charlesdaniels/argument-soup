@@ -70,6 +70,8 @@ class argumentSoup:
 				for option in this.options: # resolve alias 
 					if itemName in option['aliases']:
 						resolved.append('-'*leadingDashes + option['name'])
+					elif itemName == option['name']:
+						resolved.append('-'*leadingDashes + itemName)
 			else:
 				resolved.append(item) 
 		return resolved
@@ -143,7 +145,7 @@ class argumentSoup:
 					if option['type'] == 'argument':
 						foundItem = True
 					else: 
-						raise TypeError("option {0} found, but is not a flag"
+						raise TypeError("option {0} found, but is not a argument"
 							.format(item))
 			if not foundItem:
 				raise ValueError("option {0} was not found".format(item)) 
@@ -187,6 +189,9 @@ class argumentSoup:
 		header = textwrap.wrap(this.headerMessage, 80)
 		for line in header:
 			print(line)
+
+		print(" ")
+		print(" ")
 
 		for item in this.options:
 			if item['type'] == 'flag':
