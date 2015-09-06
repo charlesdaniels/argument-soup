@@ -131,6 +131,7 @@ class argumentSoup:
 			if not foundItem:
 				raise ValueError("option {0} was not found".format(item)) 
 
+		newResult = []
 		for item in result['arguments']:
 			argument = None
 			for option in this.options:
@@ -143,15 +144,12 @@ class argumentSoup:
 					typeToCast = argument['positionals'][i-1]['requiredType']
 					item[i] = typeToCast(item[i])
 
-			# TODO: put this in result
-			item = item[:len(argument['positionals'])] # get rid of unhandled
+			
+			item = item[:len(argument['positionals'])+1] # get rid of unhandled
 			# positional options
-						
-
-
-
-
-
+			newResult.append(item)
+			
+		result['arguments'] = newResult 
 		return result
 
 
