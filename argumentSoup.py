@@ -30,3 +30,10 @@ class argumentSoup:
 		# eg. {'flags':'verbose','arguments':{'inputfile':'foobar.txt'}}
 
 		raise(NotImplementedError)
+
+	def printHelpMessage(this): 
+		# generates and prints help message for all options in this instance
+
+		# no return value
+
+		raise(NotImplementedError)
