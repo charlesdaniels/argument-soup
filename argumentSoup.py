@@ -1,4 +1,5 @@
 import textwrap
+import sys
 
 class argumentSoup:
 	def __init__(this, name, headerMessage):
@@ -39,6 +40,9 @@ class argumentSoup:
 		option['type'] = optionType 
 		option['aliases'] = aliases
 		option['positionals'] = positionals
+		help = help.strip()
+		help = ' '.join(help.split())
+		option['help'] = help
 
 		if option['type'] == 'flag':
 			if positionals:
@@ -88,6 +92,8 @@ class argumentSoup:
 		result = {}
 		result['flags'] = []
 		result['arguments'] = []
+
+		toParse = this.resolveAlises(toParse)
 
 		currentArgument = [] # ['argumentName', 'positional1', 'positional2'...]
 		inArgument = False 
@@ -153,7 +159,8 @@ class argumentSoup:
 				if i < len(argument['positionals'])+1:
 					# cast the item to the appropriate type
 					typeToCast = argument['positionals'][i-1]['requiredType']
-					item[i] = typeToCast(item[i])
+					if typeToCast != None:
+						item[i] = typeToCast(item[i])
 
 			
 			item = item[:len(argument['positionals'])+1] # get rid of unhandled
@@ -180,3 +187,29 @@ class argumentSoup:
 		header = textwrap.wrap(this.headerMessage, 80)
 		for line in header:
 			print(line)
+
+		for item in this.options:
+			if item['type'] == 'flag':
+				sys.stdout.write('--')
+			else:
+				sys.stdout.write('-')
+			sys.stdout.write(item['name'] + ' ')
+
+			for positional in item['positionals']:
+				if positional['requiredType'] != None:
+					sys.stdout.write(str(positional['requiredType'].__name__)+':')
+				sys.stdout.write('['+positional['name']+']')
+				sys.stdout.write(' ')
+
+			
+			sys.stdout.write('(')
+			for alias in item['aliases']:
+				sys.stdout.write(alias)
+				if alias != item['aliases'][-1]:
+					sys.stdout.write(', ')
+			sys.stdout.write(')')
+
+			print('')
+
+			for line in textwrap.wrap(item['help'], 76):
+				print('    ' + line)

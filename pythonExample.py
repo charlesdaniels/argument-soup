@@ -10,6 +10,12 @@ SOUP.addOption("example",
 	positionals=[{'name':'intOption', 'requiredType':int}], 
 	help = "This is an example argument, it does not actually do anything")
 SOUP.addOption("verbose", "flag")
+SOUP.addOption('help', 'flag', help="""This command causes the help message to
+	printed. It has a relatively long help message, to demonstrate and test
+	correct line wrapping behavior for help text generation""", aliases=['h'])
 
-print(SOUP.parse(['-example', '46', 'bar', '--verbose']))
-SOUP.printHelpMessage()
+parsedArguments = SOUP.parse(sys.argv)
+if 'help' in parsedArguments['flags']:
+	SOUP.printHelpMessage()
+else:
+	print("argument soup parsed sys.argv like this: ", parsedArguments)
