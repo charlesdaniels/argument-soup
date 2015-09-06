@@ -1,7 +1,9 @@
 import argumentSoup
 import sys 
 
-SOUP = argumentSoup.argumentSoup()
+SOUP = argumentSoup.argumentSoup("example argument soup", """ an example program
+	used to demonstrate the functionality of the argument soup Python, 
+	does not actually do anything at all""")
 SOUP.addOption("example", 
 	"argument", 
 	aliases=["ex", "e"], 
@@ -10,3 +12,4 @@ SOUP.addOption("example",
 SOUP.addOption("verbose", "flag")
 
 print(SOUP.parse(['-example', '46', 'bar', '--verbose']))
+SOUP.printHelpMessage()

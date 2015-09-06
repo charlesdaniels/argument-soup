@@ -1,6 +1,17 @@
+import textwrap
+
 class argumentSoup:
-	def __init__(this):
+	def __init__(this, name, headerMessage):
+		# name and headerMessage should be strings used for generating
+		# the header as described in the argument soup spec
+
+		# neither should contain newlines; these will be added automatically 
+
 		this.options = []
+		this.name = name 
+		headerMessage = headerMessage.strip()
+		headerMessage = ' '.join(headerMessage.split())
+		this.headerMessage = headerMessage
 
 	def addOption(this, 
 		name, 
@@ -159,4 +170,13 @@ class argumentSoup:
 
 		# no return value
 
-		raise(NotImplementedError)
+		title = textwrap.wrap(this.name, 60) 
+		for line in title:
+			print(" "*10+line) 
+
+		print(" ")
+		print(" ")
+
+		header = textwrap.wrap(this.headerMessage, 80)
+		for line in header:
+			print(line)
