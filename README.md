@@ -1,3 +1,6 @@
+# Project on Hiatus
+This project is on indefinite haiatus, and is no longer updated.  
+
 # Introduction
 Argument soup is a project to create a consistent, portable, multi-lingual argument parsing library for argv and interactive command shell parsing. The first implementation will be written in python, but I hope to add C, C++, and Java versions in the future. 
 
